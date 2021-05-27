@@ -1,24 +1,22 @@
 
 def minimum_swaps(arr: list) -> int:
-    swaps: int = 0
-    swaps_2: int = 0
+    swaps: int = -1
     swaps_matches: list = []
     for i in range(len(arr)):
-        if arr[i] != i + 1:
-            if arr[i] not in swaps_matches:
-                swaps += 1
-                swaps_matches.append(i + 1)
+        if i + 1 in swaps_matches:
+            if arr[arr[i] - 1] == i + 1:
+                pass
             else:
-                if swaps_matches[swaps_matches.index(arr[i])] != i + 1:
-                    swaps_2 += 1
-                swaps_matches.pop(swaps_matches.index(arr[i]))
-    if swaps > 0:
-        swaps -= 1
-    return swaps + swaps_2
+                swaps += 1
+        elif arr[i] != i + 1:
+            swaps += 1
+            swaps_matches.append(arr[i])
+    if swaps == -1:
+        swaps = 0
+    return swaps
 
 
 if __name__ == '__main__':
-
     n = int(input())
     arr = list(map(int, input().rstrip().split()))
 
