@@ -1,11 +1,29 @@
 
 def array_manipulation(n: int, queries: list) -> int:
     max_manipulation: int
-    q: list = [0] * n
+    q: list = [[1, n, 0]]
     for i in queries:
-        for j in range(i[0] - 1, i[1]):
-            q[j] += i[2]
-    max_manipulation = max(q)
+        j = 0
+        while j < len(q):
+            if q[j][0] < i[0] <= q[j][1]:
+                q.insert(j + 1, [i[0], q[j][1], q[j][2]])
+                q[j][1] = i[0] - 1
+            if q[j][0] < i[1] < q[j][1]:
+                q.insert(j, [q[j][0], i[1], q[j][2]])
+                q[j + 1][0] = i[1] + 1
+            j += 1
+
+        for j in q:
+            if j[0] >= i[0] and j[1] <= i[1]:
+                j[2] += i[2]
+        j = 0
+        while j < len(q) - 1:
+            if q[j][2] == q[j + 1][2]:
+                q[j][1] = q[j + 1][1]
+                del q[j + 1]
+            else:
+                j += 1
+    max_manipulation = max([i[2] for i in q])
     return max_manipulation
 
 
