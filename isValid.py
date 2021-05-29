@@ -14,7 +14,8 @@ def is_valid(s: str) -> str:
     elif len(value_count) in [0, 1]:
         return "YES"
     value_count_items: list = [(i, value_count[i]) for i in sorted(value_count)]
-    if value_count_items[0][0] + 1 == value_count_items[1][0] and value_count_items[1][1] == 1:
+    if value_count_items[0][0] + 1 == value_count_items[1][0] and value_count_items[1][1] == 1 or\
+            value_count_items[0][0] == 1 and value_count_items[0][1] == 1:
         return "YES"
     else:
         return "NO"
